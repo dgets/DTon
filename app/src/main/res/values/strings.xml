@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DTon</string>
+    <string name="title">DTon</string>
+    <string name="freq_desc">Current frequency selected for playback</string>
+    <string name="freq_set_filler">What\'s the frequency, Kenneth?</string>
+</resources>
