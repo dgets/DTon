@@ -3,4 +3,7 @@
     <string name="title">DTon</string>
     <string name="freq_desc">Current frequency selected for playback</string>
     <string name="freq_set_filler">What\'s the frequency, Kenneth?</string>
+    <string name="freq_name_box">Tone Name</string>
+    <string name="freq_name_textbox">Frequency Description</string>
+    <string name="freq_value_textbox">Frequency (in Hz)</string>
 </resources>

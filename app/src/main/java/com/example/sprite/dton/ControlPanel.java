@@ -10,4 +10,8 @@ public class ControlPanel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_panel);
     }
+
+    public void btnAddFreq_onClick(android.view.View view) {
+
+    }
 }
