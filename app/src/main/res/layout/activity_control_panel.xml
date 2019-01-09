@@ -93,6 +93,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="text"
+        android:onClick="edtName_onClick"
         android:text="@string/freq_name_box"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +122,8 @@
         android:layout_marginEnd="12dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:text="@numeric/base_freq"
+        android:onClick="edtFrequency_onClick"
+        android:text="432"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/scrFreqSet"
         tools:layout_editor_absoluteY="333dp" />
