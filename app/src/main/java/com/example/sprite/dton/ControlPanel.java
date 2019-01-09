@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+
 public class ControlPanel extends AppCompatActivity {
 
     //control declarations
     private EditText edtFrequency;
     private EditText edtName;
+
+    //other schitt
+    private ToneDefinition[] myTones = new ToneDefinition[Constants.MaxPresets];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,8 @@ public class ControlPanel extends AppCompatActivity {
         //controls
         edtFrequency = (EditText) findViewById(R.id.edtFrequency);
         edtName = (EditText) findViewById(R.id.edtName);
+
+        //other
 
     }
 
