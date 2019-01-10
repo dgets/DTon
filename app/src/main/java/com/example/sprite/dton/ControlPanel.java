@@ -3,9 +3,12 @@ package com.example.sprite.dton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class ControlPanel extends AppCompatActivity {
     //control declarations
     private EditText edtFrequency;
     private EditText edtName;
+    private ScrollView scrPresetList;
+    private TableLayout tloToneList;
+    private TableRow trwToneListRow;
 
     //other schitt
     //private ToneDefinition[] myTones = new ToneDefinition[Constants.MaxPresets];
@@ -27,9 +33,11 @@ public class ControlPanel extends AppCompatActivity {
         //controls
         edtFrequency = (EditText) findViewById(R.id.edtFrequency);
         edtName = (EditText) findViewById(R.id.edtName);
+        scrPresetList = (ScrollView) findViewById(R.id.scrFreqSet);
+        tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
+        trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
 
-        //other
-
+        updateDisplay(myTones);
     }
 
     public void btnAddFreq_onClick(android.view.View view) {
@@ -41,7 +49,8 @@ public class ControlPanel extends AppCompatActivity {
         try {
             newFreq = Float.parseFloat(edtFrequency.getText().toString());
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "Enter an appropriate frequency", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Enter an appropriate frequency",
+                           Toast.LENGTH_SHORT).show();
             edtFrequency.setText(R.string.freq_value_textbox);
             err = true;
         }
@@ -64,6 +73,21 @@ public class ControlPanel extends AppCompatActivity {
         } else if (newFreq == 0) {
             Toast.makeText(getBaseContext(), "Houston, we have a problem...",
                            Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateDisplay(List<ToneDefinition> toneList) {
+        if (toneList.size() == 0) {
+            TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
+
+            tvwRowContent.setText("No frequency entries exist");
+
+            return;
+        }
+
+        for (ToneDefinition tListEntry : toneList) {
+            //dynamic addition of entries
+            
         }
     }
 
