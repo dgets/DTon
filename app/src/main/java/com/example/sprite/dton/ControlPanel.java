@@ -67,6 +67,13 @@ public class ControlPanel extends AppCompatActivity {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
             edtFrequency.setText(R.string.freq_value_textbox);
             edtName.setText(R.string.freq_name_box);
+            updateDisplay(myTones);
+
+            if (Constants.Debugging) {
+                Toast.makeText(getBaseContext(), "myTones contains: " + myTones.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+
         } else if (myTones.size() >= Constants.MaxPresets) {
             Toast.makeText(getBaseContext(), "You've reached the maximum number of presets!",
                            Toast.LENGTH_SHORT).show();
@@ -85,9 +92,41 @@ public class ControlPanel extends AppCompatActivity {
             return;
         }
 
+        int cntr = 0;
         for (ToneDefinition tListEntry : toneList) {
             //dynamic addition of entries
-            
+            TextView tvwRowContent = new TextView(getBaseContext());
+
+            if (Constants.Debugging) {
+                Toast.makeText(getBaseContext(), "Reached dynamic addition",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            tvwRowContent.setId(cntr);
+            tvwRowContent.setText(tListEntry.name + ": " + tListEntry.frequency + "Hz");
+
+            try {
+                trwToneListRow.addView(tvwRowContent);
+            } catch (Exception ex) {
+                Toast.makeText(getBaseContext(),
+                        "Exception in trwToneListRow.addView(tvwRowContent) " + ex.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+            try {
+                scrPresetList.addView(trwToneListRow);
+            } catch (Exception ex) {
+                Toast.makeText(getBaseContext(),
+                        "Exception in scrPresetList.addView(trwToneListRow) " + ex.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+            try {
+                tloToneList.addView(scrPresetList);
+            } catch (Exception ex) {
+                Toast.makeText(getBaseContext(),
+                        "Exception in tloToneList.addView(scrPresetList) " + ex.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

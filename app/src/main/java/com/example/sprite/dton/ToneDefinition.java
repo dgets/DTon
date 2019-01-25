@@ -8,4 +8,8 @@ public class ToneDefinition {
         this.name = name;
         this.frequency = freq;
     }
+
+    public String toString() {
+        return (this.name + ": " + this.frequency);
+    }
 }
