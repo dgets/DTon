@@ -2,6 +2,8 @@ package com.example.sprite.dton;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class Permanence {
     public static List<ToneDefinition> getPresetFreqs(Context context) throws Exception {
         myPresetsList = context.getSharedPreferences(PrefsName, Context.MODE_PRIVATE);
         Map<String, ?> allPresets = myPresetsList.getAll();
-        List<ToneDefinition> myTonesList = null;
+        List<ToneDefinition> myTonesList = new ArrayList();
 
         for (int cntr = 1; cntr <= (allPresets.entrySet().size() / 2); cntr++) {
             try {
