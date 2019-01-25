@@ -22,7 +22,6 @@ public class ControlPanel extends AppCompatActivity {
     private TableRow trwToneListRow;
 
     //other schitt
-    //private ToneDefinition[] myTones = new ToneDefinition[Constants.MaxPresets];
     List<ToneDefinition> myTones = new ArrayList<ToneDefinition>();
 
     @Override
@@ -69,6 +68,13 @@ public class ControlPanel extends AppCompatActivity {
             edtName.setText(R.string.freq_name_box);
             updateDisplay(myTones);
 
+            try {
+                Permanence.savePresetFreqs(getBaseContext(), myTones);
+            } catch (Exception ex) {
+                Toast.makeText(getBaseContext(), "Error saving shared preferences: " +
+                        ex.toString(), Toast.LENGTH_LONG).show();
+            }
+
             if (Constants.Debugging) {
                 Toast.makeText(getBaseContext(), "myTones contains: " + myTones.toString(),
                         Toast.LENGTH_LONG).show();
@@ -78,6 +84,7 @@ public class ControlPanel extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "You've reached the maximum number of presets!",
                            Toast.LENGTH_SHORT).show();
         } else if (newFreq == 0) {
+            //looks like this is happening primarily when a non-float value is being entered
             Toast.makeText(getBaseContext(), "Houston, we have a problem...",
                            Toast.LENGTH_SHORT).show();
         }
@@ -93,12 +100,8 @@ public class ControlPanel extends AppCompatActivity {
         }
 
         tvwRowContent.setText("\n");
-        //int cntr = 0;
         for (ToneDefinition tListEntry : toneList) {
             //dynamic addition of entries
-            //TextView tvwRowContent = new TextView(getBaseContext());
-
-
             if (Constants.Debugging) {
                 Toast.makeText(getBaseContext(), "Reached dynamic addition",
                         Toast.LENGTH_SHORT).show();
@@ -106,32 +109,6 @@ public class ControlPanel extends AppCompatActivity {
 
             //tvwRowContent.setId(cntr);
             tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
-
-//            //this works correctly -- LIES, LIES
-//            try {
-//                trwToneListRow.addView(tvwRowContent);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in trwToneListRow.addView(tvwRowContent) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//
-//            //these fail flamboyantly
-//            try {
-//                scrPresetList.addView(trwToneListRow);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in scrPresetList.addView(trwToneListRow) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//            try {
-//                tloToneList.addView(scrPresetList);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in tloToneList.addView(scrPresetList) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-
         }
     }
 
