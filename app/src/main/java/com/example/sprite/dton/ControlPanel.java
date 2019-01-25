@@ -84,48 +84,53 @@ public class ControlPanel extends AppCompatActivity {
     }
 
     public void updateDisplay(List<ToneDefinition> toneList) {
-        if (toneList.size() == 0) {
-            TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
+        TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
 
+        if (toneList.size() == 0) {
             tvwRowContent.setText("No frequency entries exist");
 
             return;
         }
 
-        int cntr = 0;
+        tvwRowContent.setText("\n");
+        //int cntr = 0;
         for (ToneDefinition tListEntry : toneList) {
             //dynamic addition of entries
-            TextView tvwRowContent = new TextView(getBaseContext());
+            //TextView tvwRowContent = new TextView(getBaseContext());
+
 
             if (Constants.Debugging) {
                 Toast.makeText(getBaseContext(), "Reached dynamic addition",
                         Toast.LENGTH_SHORT).show();
             }
 
-            tvwRowContent.setId(cntr);
-            tvwRowContent.setText(tListEntry.name + ": " + tListEntry.frequency + "Hz");
+            //tvwRowContent.setId(cntr);
+            tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
 
-            try {
-                trwToneListRow.addView(tvwRowContent);
-            } catch (Exception ex) {
-                Toast.makeText(getBaseContext(),
-                        "Exception in trwToneListRow.addView(tvwRowContent) " + ex.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-            try {
-                scrPresetList.addView(trwToneListRow);
-            } catch (Exception ex) {
-                Toast.makeText(getBaseContext(),
-                        "Exception in scrPresetList.addView(trwToneListRow) " + ex.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-            try {
-                tloToneList.addView(scrPresetList);
-            } catch (Exception ex) {
-                Toast.makeText(getBaseContext(),
-                        "Exception in tloToneList.addView(scrPresetList) " + ex.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
+//            //this works correctly -- LIES, LIES
+//            try {
+//                trwToneListRow.addView(tvwRowContent);
+//            } catch (Exception ex) {
+//                Toast.makeText(getBaseContext(),
+//                        "Exception in trwToneListRow.addView(tvwRowContent) " + ex.toString(),
+//                        Toast.LENGTH_LONG).show();
+//            }
+//
+//            //these fail flamboyantly
+//            try {
+//                scrPresetList.addView(trwToneListRow);
+//            } catch (Exception ex) {
+//                Toast.makeText(getBaseContext(),
+//                        "Exception in scrPresetList.addView(trwToneListRow) " + ex.toString(),
+//                        Toast.LENGTH_LONG).show();
+//            }
+//            try {
+//                tloToneList.addView(scrPresetList);
+//            } catch (Exception ex) {
+//                Toast.makeText(getBaseContext(),
+//                        "Exception in tloToneList.addView(scrPresetList) " + ex.toString(),
+//                        Toast.LENGTH_LONG).show();
+//            }
 
         }
     }
