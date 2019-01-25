@@ -1,5 +1,6 @@
 package com.example.sprite.dton;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -22,8 +23,7 @@ public class ControlPanel extends AppCompatActivity {
     private TableRow trwToneListRow;
 
     //other schitt
-    //private ToneDefinition[] myTones = new ToneDefinition[Constants.MaxPresets];
-    List<ToneDefinition> myTones = new ArrayList<ToneDefinition>();
+    private List<ToneDefinition> myTones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,17 @@ public class ControlPanel extends AppCompatActivity {
         tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
         trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
 
+        try {
+            myTones = Permanence.getPresetFreqs(getBaseContext());
+        } catch (Exception ex) {
+            Toast.makeText(getBaseContext(), "Issue loading presets: " +
+                    ex.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        if (myTones == null) {
+            myTones = new ArrayList();
+        }
+
         updateDisplay(myTones);
     }
 
@@ -45,11 +56,12 @@ public class ControlPanel extends AppCompatActivity {
         float newFreq = 0;
         String newFreqName;
         boolean err = false;
+        Context context = getBaseContext();
 
         try {
             newFreq = Float.parseFloat(edtFrequency.getText().toString());
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "Enter an appropriate frequency",
+            Toast.makeText(context, "Enter an appropriate frequency",
                            Toast.LENGTH_SHORT).show();
             edtFrequency.setText(R.string.freq_value_textbox);
             err = true;
@@ -57,7 +69,7 @@ public class ControlPanel extends AppCompatActivity {
 
         newFreqName = edtName.getText().toString();
         if (newFreqName.equals(R.string.freq_name_box) || newFreqName.equals("")) {
-            Toast.makeText(getBaseContext(), "Enter a name/desc for your frequency choice",
+            Toast.makeText(context, "Enter a name/desc for your frequency choice",
                            Toast.LENGTH_SHORT).show();
             edtName.setText(R.string.freq_name_box);
             err = true;
@@ -68,17 +80,24 @@ public class ControlPanel extends AppCompatActivity {
             edtFrequency.setText(R.string.freq_value_textbox);
             edtName.setText(R.string.freq_name_box);
             updateDisplay(myTones);
+            try {
+                Permanence.savePresetFreqs(context, myTones);
+            } catch (Exception ex) {
+                Toast.makeText(context, "Error saving shared preferences: " +
+                        ex.toString(), Toast.LENGTH_LONG).show();
+            }
 
             if (Constants.Debugging) {
-                Toast.makeText(getBaseContext(), "myTones contains: " + myTones.toString(),
+                Toast.makeText(context, "myTones contains: " + myTones.toString(),
                         Toast.LENGTH_LONG).show();
             }
 
         } else if (myTones.size() >= Constants.MaxPresets) {
-            Toast.makeText(getBaseContext(), "You've reached the maximum number of presets!",
+            Toast.makeText(context, "You've reached the maximum number of presets!",
                            Toast.LENGTH_SHORT).show();
         } else if (newFreq == 0) {
-            Toast.makeText(getBaseContext(), "Houston, we have a problem...",
+            //looks like this is happening primarily when a non-float value is being entered
+            Toast.makeText(context, "Houston, we have a problem...",
                            Toast.LENGTH_SHORT).show();
         }
     }
@@ -93,12 +112,8 @@ public class ControlPanel extends AppCompatActivity {
         }
 
         tvwRowContent.setText("\n");
-        //int cntr = 0;
         for (ToneDefinition tListEntry : toneList) {
             //dynamic addition of entries
-            //TextView tvwRowContent = new TextView(getBaseContext());
-
-
             if (Constants.Debugging) {
                 Toast.makeText(getBaseContext(), "Reached dynamic addition",
                         Toast.LENGTH_SHORT).show();
@@ -106,32 +121,6 @@ public class ControlPanel extends AppCompatActivity {
 
             //tvwRowContent.setId(cntr);
             tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
-
-//            //this works correctly -- LIES, LIES
-//            try {
-//                trwToneListRow.addView(tvwRowContent);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in trwToneListRow.addView(tvwRowContent) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//
-//            //these fail flamboyantly
-//            try {
-//                scrPresetList.addView(trwToneListRow);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in scrPresetList.addView(trwToneListRow) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//            try {
-//                tloToneList.addView(scrPresetList);
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),
-//                        "Exception in tloToneList.addView(scrPresetList) " + ex.toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-
         }
     }
 
