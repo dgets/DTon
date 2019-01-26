@@ -63,7 +63,7 @@ public class ControlPanel extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(context, "Enter an appropriate frequency",
                            Toast.LENGTH_SHORT).show();
-            edtFrequency.setText(R.string.freq_value_textbox);
+            edtFrequency.setText("");
             err = true;
         }
 
@@ -71,14 +71,14 @@ public class ControlPanel extends AppCompatActivity {
         if (newFreqName.equals(R.string.freq_name_box) || newFreqName.equals("")) {
             Toast.makeText(context, "Enter a name/desc for your frequency choice",
                            Toast.LENGTH_SHORT).show();
-            edtName.setText(R.string.freq_name_box);
+            edtName.setText("");
             err = true;
         }
 
         if (!err && (myTones.size() < Constants.MaxPresets) && (newFreq != 0)) {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
-            edtFrequency.setText(R.string.freq_value_textbox);
-            edtName.setText(R.string.freq_name_box);
+            edtFrequency.setText("");
+            edtName.setText("");
             updateDisplay(myTones);
             try {
                 Permanence.savePresetFreqs(context, myTones);
