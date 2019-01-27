@@ -35,7 +35,7 @@ public class ControlPanel extends AppCompatActivity {
          * load preset values from the database and updates the display so as
          * to make the list visible to the user.
          */
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_panel);
 
