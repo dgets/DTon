@@ -90,7 +90,7 @@ public class ControlPanel extends AppCompatActivity {
             err = true;
         }
 
-        if (!err && (myTones.size() < Constants.MaxPresets) && (newFreq != 0)) {
+        if (!err && (myTones.size() < GlobalMisc.MaxPresets) && (newFreq != 0)) {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
             edtFrequency.setText("");
             edtName.setText("");
@@ -102,17 +102,17 @@ public class ControlPanel extends AppCompatActivity {
                         ex.toString(), Toast.LENGTH_LONG).show();
             }
 
-            if (Constants.Debugging) {
+            if (GlobalMisc.Debugging) {
                 Toast.makeText(context, "myTones contains: " + myTones.toString(),
                         Toast.LENGTH_LONG).show();
             }
 
-        } else if (myTones.size() >= Constants.MaxPresets) {
+        } else if (myTones.size() >= GlobalMisc.MaxPresets) {
             Toast.makeText(context, "You've reached the maximum number of presets!",
                            Toast.LENGTH_SHORT).show();
         } else if (newFreq == 0) {
             //looks like this is happening primarily when a non-float value is being entered
-            Toast.makeText(context, "Houston, we have a problem...",
+            Toast.makeText(context, "Houston, we have a problem... (non-float value?)",
                            Toast.LENGTH_SHORT).show();
         }
     }
@@ -136,10 +136,11 @@ public class ControlPanel extends AppCompatActivity {
         tvwRowContent.setText("\n");
         for (ToneDefinition tListEntry : toneList) {
             //dynamic addition of entries
-            if (Constants.Debugging) {
-                Toast.makeText(getBaseContext(), "Reached dynamic addition",
-                        Toast.LENGTH_SHORT).show();
-            }
+            GlobalMisc.debugTMsg(getBaseContext(), "Entered dynamic addition of presets");
+            //if (GlobalMisc.Debugging) {
+            //    Toast.makeText(getBaseContext(), "Reached dynamic addition",
+            //            Toast.LENGTH_SHORT).show();
+            //}
 
             //tvwRowContent.setId(cntr);
             tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
