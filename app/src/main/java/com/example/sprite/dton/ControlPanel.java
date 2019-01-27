@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControlPanel extends AppCompatActivity {
+    /**
+     * Main display and entry point.
+     */
 
     //control declarations
     private EditText edtFrequency;
@@ -27,6 +30,12 @@ public class ControlPanel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**
+         * Takes care of the initialization of several bits, also attempts to
+         * load preset values from the database and updates the display so as
+         * to make the list visible to the user.
+         */
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_panel);
 
@@ -52,6 +61,12 @@ public class ControlPanel extends AppCompatActivity {
     }
 
     public void btnAddFreq_onClick(android.view.View view) {
+        /**
+         * Adds the information (if validated properly) to the internal list
+         * of preset frequencies, saves them to the SharePreferences, and adds
+         * them to the preset list display.
+         */
+
         //let's make sure we've got what we need here, first
         float newFreq = 0;
         String newFreqName;
@@ -63,7 +78,7 @@ public class ControlPanel extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(context, "Enter an appropriate frequency",
                            Toast.LENGTH_SHORT).show();
-            edtFrequency.setText(R.string.freq_value_textbox);
+            edtFrequency.setText("");
             err = true;
         }
 
@@ -71,14 +86,14 @@ public class ControlPanel extends AppCompatActivity {
         if (newFreqName.equals(R.string.freq_name_box) || newFreqName.equals("")) {
             Toast.makeText(context, "Enter a name/desc for your frequency choice",
                            Toast.LENGTH_SHORT).show();
-            edtName.setText(R.string.freq_name_box);
+            edtName.setText("");
             err = true;
         }
 
         if (!err && (myTones.size() < Constants.MaxPresets) && (newFreq != 0)) {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
-            edtFrequency.setText(R.string.freq_value_textbox);
-            edtName.setText(R.string.freq_name_box);
+            edtFrequency.setText("");
+            edtName.setText("");
             updateDisplay(myTones);
             try {
                 Permanence.savePresetFreqs(context, myTones);
@@ -103,6 +118,13 @@ public class ControlPanel extends AppCompatActivity {
     }
 
     public void updateDisplay(List<ToneDefinition> toneList) {
+        /**
+         * Handles addition of the presets list elements to the TextView used
+         * for their display.
+         *
+         * TODO: Swap TextView for RecycleWhatever that will provide the selectable functionality that we need
+         */
+
         TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
 
         if (toneList.size() == 0) {
@@ -122,13 +144,5 @@ public class ControlPanel extends AppCompatActivity {
             //tvwRowContent.setId(cntr);
             tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
         }
-    }
-
-    public void edtFrequency_onClick(android.view.View view) {
-        edtFrequency.setText("");
-    }
-
-    public void edtName_onClick(android.view.View view) {
-        edtName.setText("");
     }
 }

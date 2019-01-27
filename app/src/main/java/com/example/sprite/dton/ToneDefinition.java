@@ -1,6 +1,10 @@
 package com.example.sprite.dton;
 
 public class ToneDefinition {
+    /**
+     * Our class for each preset tone object, which we're holding a List of in
+     * order to store our user inputted data.
+     */
     String name;
     float frequency;
 
