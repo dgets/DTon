@@ -13,37 +13,37 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main display and entry point.
+ */
 public class ControlPanel extends AppCompatActivity {
-    /**
-     * Main display and entry point.
-     */
-
     //control declarations
     private EditText edtFrequency;
     private EditText edtName;
-    private ScrollView scrPresetList;
-    private TableLayout tloToneList;
+    //private ScrollView scrPresetList;
+    //private TableLayout tloToneList;
     private TableRow trwToneListRow;
 
     //other schitt
     private List<ToneDefinition> myTones;
 
+    /**
+     * Takes care of the initialization of several bits, also attempts to
+     * load preset values from the database and updates the display so as
+     * to make the list visible to the user.
+     *
+     * @param savedInstanceState typical onCreate() crapola
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /**
-         * Takes care of the initialization of several bits, also attempts to
-         * load preset values from the database and updates the display so as
-         * to make the list visible to the user.
-         */
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_panel);
 
         //controls
         edtFrequency = (EditText) findViewById(R.id.edtFrequency);
         edtName = (EditText) findViewById(R.id.edtName);
-        scrPresetList = (ScrollView) findViewById(R.id.scrFreqSet);
-        tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
+        //scrPresetList = (ScrollView) findViewById(R.id.scrFreqSet);
+        //tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
         trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
 
         try {
@@ -60,13 +60,14 @@ public class ControlPanel extends AppCompatActivity {
         updateDisplay(myTones);
     }
 
+    /**
+     * Adds the information (if validated properly) to the internal list
+     * of preset frequencies, saves them to the SharePreferences, and adds
+     * them to the preset list display.
+     *
+     * @param view current view
+     */
     public void btnAddFreq_onClick(android.view.View view) {
-        /**
-         * Adds the information (if validated properly) to the internal list
-         * of preset frequencies, saves them to the SharePreferences, and adds
-         * them to the preset list display.
-         */
-
         //let's make sure we've got what we need here, first
         float newFreq = 0;
         String newFreqName;
@@ -117,14 +118,15 @@ public class ControlPanel extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles addition of the presets list elements to the TextView used
+     * for their display.
+     *
+     * TODO: Swap TextView for RecycleWhatever that will provide the selectable functionality that we need
+     *
+     * @param toneList internal data structure for preset frequencies
+     */
     public void updateDisplay(List<ToneDefinition> toneList) {
-        /**
-         * Handles addition of the presets list elements to the TextView used
-         * for their display.
-         *
-         * TODO: Swap TextView for RecycleWhatever that will provide the selectable functionality that we need
-         */
-
         TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
 
         if (toneList.size() == 0) {

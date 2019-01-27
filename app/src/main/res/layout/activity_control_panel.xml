@@ -31,13 +31,13 @@
         android:id="@+id/tbxFreq"
         android:layout_width="174dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/freq_desc"
         android:fontFamily="monospace"
-        android:text="Freq"
+        android:text="@string/frequencies_heading"
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="40sp"
@@ -49,7 +49,7 @@
 
     <ScrollView
         android:id="@+id/scrFreqSet"
-        android:layout_width="185dp"
+        android:layout_width="187dp"
         android:layout_height="362dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
@@ -84,8 +84,10 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="220dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:onClick="btnAddFreq_onClick"
-        android:text="Add New"
+        android:text="@string/freq_add_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toEndOf="@+id/scrFreqSet"
@@ -99,7 +101,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
-        android:hint="Tone Name"
+        android:hint="@string/freq_name_hint"
         android:inputType="text"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -134,7 +136,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="212dp"
         android:ems="10"
-        android:hint="432"
+        android:hint='@numeric/base_freq"'
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,18 +159,23 @@
 
     <TableLayout
         android:id="@+id/tloToneListing"
-        android:layout_width="168dp"
-        android:layout_height="335dp"
+        android:layout_width="184dp"
+        android:layout_height="347dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/scrFreqSet"
+        app:layout_constraintEnd_toStartOf="@+id/edtFrequency"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrFreqSet"
-        tools:layout_editor_absoluteX="20dp">
+        app:layout_constraintVertical_bias="0.592">
 
         <TableRow
             android:id="@+id/trwFreqEntry"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:visibility="visible" >
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tvwFreqListEntry"

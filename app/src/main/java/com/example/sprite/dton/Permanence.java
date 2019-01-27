@@ -7,22 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Contains methods and data related to keeping our data stored somewhere.
+ */
 public class Permanence {
-    /**
-     * Contains methods and data related to keeping our data stored somewhere.
-     */
-
     private static final String  PrefsName = "PresetsDef";
     private static final String  FreqEntryName = "freqEntryNameKey";
     private static final String  FreqEntryValue = "freqEntryValueKey";
     private static SharedPreferences myPresetsList;
 
+    /**
+     * Saves preset frequencies list via the SharedPreferences.Editor
+     *
+     * @param context current context
+     * @param presetList internal data structure for preset frequencies
+     */
     public static void savePresetFreqs(Context context, List<ToneDefinition> presetList)
             throws Exception {
-        /**
-         * Saves preset frequencies list via the SharedPreferences.Editor
-         */
-
         myPresetsList = context.getSharedPreferences(PrefsName, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = myPresetsList.edit();
 
@@ -43,11 +44,14 @@ public class Permanence {
         return;
     }
 
+    /**
+     * Loads the preset frequencies list (if available) via
+     * getSharedPreferences
+     *
+     * @param context current context
+     * @return List internal data structure representing preset frequencies
+     */
     public static List<ToneDefinition> getPresetFreqs(Context context) throws Exception {
-        /**
-         * Loads the preset frequencies list (if available) via
-         * getSharedPreferences
-         */
         myPresetsList = context.getSharedPreferences(PrefsName, Context.MODE_PRIVATE);
         Map<String, ?> allPresets = myPresetsList.getAll();
         List<ToneDefinition> myTonesList = new ArrayList();

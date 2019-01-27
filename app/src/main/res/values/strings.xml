@@ -6,4 +6,7 @@
     <string name="freq_name_box">Tone Name</string>
     <string name="freq_name_textbox">Frequency Description</string>
     <string name="freq_value_textbox">Frequency (in Hz)</string>
+    <string name="frequencies_heading">Freqs</string>
+    <string name="freq_add_button_text">Add New</string>
+    <string name="freq_name_hint">Tone Name</string>
 </resources>
