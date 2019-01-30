@@ -117,4 +117,14 @@ public class ControlPanel extends AppCompatActivity {
                            Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * Method handles initiating tone playback (or stop, depending) when the
+     * card holding the frequency's data is clicked.
+     *
+     * @param view
+     */
+    public void onPresetClick(android.view.View view) {
+
+    }
 }

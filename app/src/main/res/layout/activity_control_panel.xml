@@ -113,12 +113,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvwFrequencies"
-        android:layout_width="203dp"
-        android:layout_height="400dp"
+        android:layout_width="202dp"
+        android:layout_height="332dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="180dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edtFrequency"
         app:layout_constraintHorizontal_bias="0.266"

@@ -5,8 +5,9 @@ package com.example.sprite.dton;
  * order to store our user inputted data.
  */
 public class ToneDefinition {
-    String name;
-    float frequency;
+    private String name;
+    private float frequency;
+    private boolean playing = false;
 
     public void setName(String name) {
         this.name = name;
@@ -22,6 +23,16 @@ public class ToneDefinition {
 
     public float getFrequency() {
         return frequency;
+    }
+
+    public boolean isPlaying() {
+        return this.playing;
+    }
+
+    public boolean togglePlaying() {
+        this.playing = !this.playing;
+
+        return this.playing;
     }
 
     /**
