@@ -34,7 +34,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:contentDescription="@string/freq_desc"
         android:fontFamily="monospace"
         android:text="@string/frequencies_heading"
@@ -42,46 +41,14 @@
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="40sp"
         android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/scrFreqSet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbxTitle" />
-
-    <ScrollView
-        android:id="@+id/scrFreqSet"
-        android:layout_width="187dp"
-        android:layout_height="362dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtPresetFreq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/freq_set_filler"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="105dp"
-                tools:layout_editor_absoluteY="213dp" />
-        </LinearLayout>
-    </ScrollView>
 
     <Button
         android:id="@+id/btnAddFreq"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:layout_marginTop="220dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -89,15 +56,12 @@
         android:text="@string/freq_add_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toEndOf="@+id/scrFreqSet"
         app:layout_constraintTop_toBottomOf="@+id/tbxFreq" />
 
     <EditText
         android:id="@+id/edtName"
         android:layout_width="153dp"
         android:layout_height="41dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
@@ -106,15 +70,12 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/txtFrequency"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toEndOf="@+id/scrFreqSet" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txtToneName"
         android:layout_width="166dp"
         android:layout_height="33dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="8dp"
@@ -123,8 +84,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edtName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/scrFreqSet"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.935" />
 
@@ -132,57 +91,40 @@
         android:id="@+id/edtFrequency"
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="212dp"
         android:ems="10"
         android:hint='@numeric/base_freq"'
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.764"
-        app:layout_constraintStart_toEndOf="@+id/scrFreqSet" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txtFrequency"
         android:layout_width="145dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/freq_value_textbox"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edtFrequency"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/scrFreqSet" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TableLayout
-        android:id="@+id/tloToneListing"
-        android:layout_width="184dp"
-        android:layout_height="347dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvwFrequencies"
+        android:layout_width="203dp"
+        android:layout_height="400dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrFreqSet"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edtFrequency"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrFreqSet"
-        app:layout_constraintVertical_bias="0.592">
-
-        <TableRow
-            android:id="@+id/trwFreqEntry"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/tvwFreqListEntry"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
-    </TableLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tbxFreq"
+        app:layout_constraintVertical_bias="0.2" />
 
 
 </android.support.constraint.ConstraintLayout>

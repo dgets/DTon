@@ -3,6 +3,8 @@ package com.example.sprite.dton;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -23,6 +25,8 @@ public class ControlPanel extends AppCompatActivity {
     //private ScrollView scrPresetList;
     //private TableLayout tloToneList;
     private TableRow trwToneListRow;
+    RecyclerView recyclerView;
+    ToneDefinitionAdapter adapter;
 
     //other schitt
     private List<ToneDefinition> myTones;
@@ -44,7 +48,11 @@ public class ControlPanel extends AppCompatActivity {
         edtName = (EditText) findViewById(R.id.edtName);
         //scrPresetList = (ScrollView) findViewById(R.id.scrFreqSet);
         //tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
-        trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
+        //trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
+        recyclerView = (RecyclerView) findViewById(R.id.rvwFrequencies);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         try {
             myTones = Permanence.getPresetFreqs(getBaseContext());
@@ -57,7 +65,9 @@ public class ControlPanel extends AppCompatActivity {
             myTones = new ArrayList();
         }
 
-        updateDisplay(myTones);
+        //updateDisplay(myTones);
+        adapter = new ToneDefinitionAdapter(this, myTones);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -95,7 +105,7 @@ public class ControlPanel extends AppCompatActivity {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
             edtFrequency.setText("");
             edtName.setText("");
-            updateDisplay(myTones);
+            //updateDisplay(myTones);
             try {
                 Permanence.savePresetFreqs(context, myTones);
             } catch (Exception ex) {
@@ -126,7 +136,7 @@ public class ControlPanel extends AppCompatActivity {
      *
      * @param toneList internal data structure for preset frequencies
      */
-    public void updateDisplay(List<ToneDefinition> toneList) {
+    /*public void updateDisplay(List<ToneDefinition> toneList) {
         TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
 
         if (toneList.size() == 0) {
@@ -147,5 +157,5 @@ public class ControlPanel extends AppCompatActivity {
             //tvwRowContent.setId(cntr);
             tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
         }
-    }
+    }*/
 }

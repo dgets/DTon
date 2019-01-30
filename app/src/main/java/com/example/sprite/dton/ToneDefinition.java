@@ -8,6 +8,22 @@ public class ToneDefinition {
     String name;
     float frequency;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
     /**
      * ToneDefinition constructor method
      *
@@ -21,7 +37,7 @@ public class ToneDefinition {
 
     /**
      * That normal thing that a toString() method does
-     * 
+     *
      * @return
      */
     public String toString() {
