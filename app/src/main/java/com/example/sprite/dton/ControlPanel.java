@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,9 +18,6 @@ public class ControlPanel extends AppCompatActivity {
     //control declarations
     private EditText edtFrequency;
     private EditText edtName;
-    //private ScrollView scrPresetList;
-    //private TableLayout tloToneList;
-    private TableRow trwToneListRow;
     RecyclerView recyclerView;
     ToneDefinitionAdapter adapter;
 
@@ -46,9 +39,6 @@ public class ControlPanel extends AppCompatActivity {
         //controls
         edtFrequency = (EditText) findViewById(R.id.edtFrequency);
         edtName = (EditText) findViewById(R.id.edtName);
-        //scrPresetList = (ScrollView) findViewById(R.id.scrFreqSet);
-        //tloToneList = (TableLayout) findViewById(R.id.tloToneListing);
-        //trwToneListRow = (TableRow) findViewById(R.id.trwFreqEntry);
         recyclerView = (RecyclerView) findViewById(R.id.rvwFrequencies);
 
         recyclerView.setHasFixedSize(true);
@@ -127,35 +117,4 @@ public class ControlPanel extends AppCompatActivity {
                            Toast.LENGTH_SHORT).show();
         }
     }
-
-    /**
-     * Handles addition of the presets list elements to the TextView used
-     * for their display.
-     *
-     * TODO: Swap TextView for RecycleWhatever that will provide the selectable functionality that we need
-     *
-     * @param toneList internal data structure for preset frequencies
-     */
-    /*public void updateDisplay(List<ToneDefinition> toneList) {
-        TextView tvwRowContent = (TextView) trwToneListRow.findViewById(R.id.tvwFreqListEntry);
-
-        if (toneList.size() == 0) {
-            tvwRowContent.setText("No frequency entries exist");
-
-            return;
-        }
-
-        tvwRowContent.setText("\n");
-        for (ToneDefinition tListEntry : toneList) {
-            //dynamic addition of entries
-            GlobalMisc.debugTMsg(getBaseContext(), "Entered dynamic addition of presets");
-            //if (GlobalMisc.Debugging) {
-            //    Toast.makeText(getBaseContext(), "Reached dynamic addition",
-            //            Toast.LENGTH_SHORT).show();
-            //}
-
-            //tvwRowContent.setId(cntr);
-            tvwRowContent.append(tListEntry.name + ": " + tListEntry.frequency + "Hz\n");
-        }
-    }*/
 }
