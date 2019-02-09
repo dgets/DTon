@@ -151,14 +151,14 @@ public class ControlPanel extends AppCompatActivity {
                         toneList.get(ouah).togglePlaying();
                         PlayTone.stop();
                     } else if (alreadyPlaying) {
-                        Toast.makeText(getBaseContext(), "Already playing a tone, stop " +
-                                        toneList.get(playingIndex).getName() + " first!",
+                        Toast.makeText(getBaseContext(), "Already playing a tone, stop '" +
+                                        toneList.get(playingIndex).getName() + "' first!",
                                         Toast.LENGTH_LONG).show();
                     } else {
                         toneList.get(ouah).togglePlaying();
                         PlayTone.play(toneList.get(ouah).getFrequency());
-                        Toast.makeText(getBaseContext(), "Playing " + toneList.get(ouah).getName(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Playing '" +
+                                toneList.get(ouah).getName() + "'", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
