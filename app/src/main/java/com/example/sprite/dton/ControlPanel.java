@@ -1,8 +1,11 @@
 package com.example.sprite.dton;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,7 +25,7 @@ public class ControlPanel extends AppCompatActivity {
     private LinearLayout lloPresets;
 
     //other schitt
-    private List<ToneDefinition> myTones;
+    public static List<ToneDefinition> myTones;
 
     /**
      * Takes care of the initialization of several bits, also attempts to
@@ -129,10 +132,12 @@ public class ControlPanel extends AppCompatActivity {
             presetsTextView[cntr] = new TextView(context);
             presetsTextView[cntr].setLayoutParams(lparams);
             presetsTextView[cntr].setText(myTones.get(cntr).getName() + ": " +
-                    myTones.get(cntr).getFrequency() + "Hz");
+                                    myTones.get(cntr).getFrequency() + "Hz");
+            presetsTextView[cntr].setTag(cntr);
 
             final int ouah = cntr;
 
+            //implements playback toggle with a textbox click
             presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -160,6 +165,45 @@ public class ControlPanel extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Playing '" +
                                 toneList.get(ouah).getName() + "'", Toast.LENGTH_SHORT).show();
                     }
+                }
+            });
+
+            //provide a dialog to delete this preset entry if confirmed
+            presetsTextView[cntr].setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ControlPanel.this);
+                    builder.setTitle("Delete this preset?");
+
+                    final View innerView = v;
+
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //remove the entry
+                            //Log.d("onLongClick", "tag: " + innerView.getTag());
+                            //toneList.remove(innerView.getTag());
+                            ToneDefinition.wipeEntry(
+                                    Integer.parseInt(innerView.getTag().toString()));
+                            try {
+                                Permanence.savePresetFreqs(ControlPanel.this, toneList);
+                            } catch (Exception ex) {
+                                Toast.makeText(ControlPanel.this, "Issue saving presets: " + ex,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            updateDisplay(toneList);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+
+                    return false;
                 }
             });
 

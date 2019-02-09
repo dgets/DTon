@@ -46,6 +46,10 @@ public class ToneDefinition {
         this.frequency = freq;
     }
 
+    public static void wipeEntry(int position) {
+        ControlPanel.myTones.remove(position);
+    }
+
     /**
      * That normal thing that a toString() method does
      *
