@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,8 +21,7 @@ public class ControlPanel extends AppCompatActivity {
     //control declarations
     private EditText edtFrequency;
     private EditText edtName;
-    RecyclerView recyclerView;
-    ToneDefinitionAdapter adapter;
+    private LinearLayout lloPresets;
 
     //other schitt
     private List<ToneDefinition> myTones;
@@ -39,10 +41,7 @@ public class ControlPanel extends AppCompatActivity {
         //controls
         edtFrequency = (EditText) findViewById(R.id.edtFrequency);
         edtName = (EditText) findViewById(R.id.edtName);
-        recyclerView = (RecyclerView) findViewById(R.id.rvwFrequencies);
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        lloPresets = (LinearLayout) findViewById(R.id.lloPresets);
 
         try {
             myTones = Permanence.getPresetFreqs(getBaseContext());
@@ -55,9 +54,7 @@ public class ControlPanel extends AppCompatActivity {
             myTones = new ArrayList();
         }
 
-        //updateDisplay(myTones);
-        adapter = new ToneDefinitionAdapter(this, myTones);
-        recyclerView.setAdapter(adapter);
+        updateDisplay(myTones);
     }
 
     /**
@@ -95,7 +92,7 @@ public class ControlPanel extends AppCompatActivity {
             myTones.add(new ToneDefinition(newFreqName, newFreq));
             edtFrequency.setText("");
             edtName.setText("");
-            //updateDisplay(myTones);
+            updateDisplay(myTones);
             try {
                 Permanence.savePresetFreqs(context, myTones);
             } catch (Exception ex) {
@@ -115,6 +112,34 @@ public class ControlPanel extends AppCompatActivity {
             //looks like this is happening primarily when a non-float value is being entered
             Toast.makeText(context, "Houston, we have a problem... (non-float value?)",
                            Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateDisplay(List<ToneDefinition> myTones) {
+        Context context = getBaseContext();
+        LinearLayout.LayoutParams lparams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+        TextView[] presetsTextView = new TextView[GlobalMisc.MaxPresets];
+        final List<ToneDefinition> toneList = myTones;
+
+        for (int cntr = 0; cntr < myTones.size() && cntr < GlobalMisc.MaxPresets; cntr++) {
+            presetsTextView[cntr] = new TextView(context);
+            presetsTextView[cntr].setLayoutParams(lparams);
+            presetsTextView[cntr].setText(myTones.get(cntr).getName() + ": " +
+                    myTones.get(cntr).getFrequency() + "Hz");
+
+            final int ouah = cntr;
+
+            presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GlobalMisc.debugTMsg(getBaseContext(), "You selected " +
+                            toneList.get(ouah).getName());
+                }
+            });
+
+            lloPresets.addView(presetsTextView[cntr]);
         }
     }
 

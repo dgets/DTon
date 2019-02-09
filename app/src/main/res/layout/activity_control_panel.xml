@@ -111,21 +111,21 @@
         app:layout_constraintBottom_toTopOf="@+id/edtFrequency"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvwFrequencies"
-        android:layout_width="202dp"
-        android:layout_height="332dp"
+    <LinearLayout
+        android:id="@+id/lloPresets"
+        android:layout_width="217dp"
+        android:layout_height="405dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:scrollbars="vertical"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edtFrequency"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbxFreq"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="1.0"/>
 
 
 </android.support.constraint.ConstraintLayout>

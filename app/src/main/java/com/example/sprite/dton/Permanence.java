@@ -29,9 +29,9 @@ public class Permanence {
 
         for (int cntr = 1; cntr <= presetList.size(); cntr++) {
             prefsEditor.putString(FreqEntryName + Integer.toString(cntr),
-                    presetList.get(cntr - 1).name);
+                    presetList.get(cntr - 1).getName());
             prefsEditor.putFloat(FreqEntryValue + Integer.toString(cntr),
-                    presetList.get(cntr -1).frequency);
+                    presetList.get(cntr -1).getFrequency());
 
             try {
                 prefsEditor.commit();   //note that .apply() will do this in the bg instead of
