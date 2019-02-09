@@ -59,7 +59,11 @@ public class Permanence {
         Map<String, ?> allPresets = myPresetsList.getAll();
         List<ToneDefinition> myTonesList = new ArrayList();
 
-        for (int cntr = 1; cntr <= (allPresets.entrySet().size() / 2); cntr++) {
+        Log.d("getPresetFreqs", "allPresets contains: " + allPresets.toString());
+        Log.d("getPresetFreqs", "allPresets size: " +
+                Integer.toString(allPresets.entrySet().size()));
+        
+        for (int cntr = 0; cntr < (allPresets.entrySet().size() / 2); cntr++) {
             try {
                 myTonesList.add(new ToneDefinition(myPresetsList.getString(
                         FreqEntryName + Integer.toString(cntr), "-"),
@@ -77,6 +81,7 @@ public class Permanence {
         SharedPreferences prefs = myPresetsList;
         boolean success = true;
 
+        Log.d("removePresetFreq", "Trying to remove entry #" + Integer.toString(ndx));
         if (!prefs.edit().remove(FreqEntryName + Integer.toString(ndx)).commit()) {
             success = false;
         }
