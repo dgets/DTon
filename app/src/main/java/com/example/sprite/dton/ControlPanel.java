@@ -121,6 +121,8 @@ public class ControlPanel extends AppCompatActivity {
         LinearLayout.LayoutParams lparams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
+        lparams.height = 80;    //this should be set programmatically instead of hard coded as
+                                //there will be different screen sizes eventually
         TextView[] presetsTextView = new TextView[GlobalMisc.MaxPresets];
         final List<ToneDefinition> toneList = myTones;
 
@@ -134,6 +136,8 @@ public class ControlPanel extends AppCompatActivity {
             presetsTextView[cntr].setText(myTones.get(cntr).getName() + ": " +
                                     myTones.get(cntr).getFrequency() + "Hz");
             presetsTextView[cntr].setTag(cntr);
+            //presetsTextView[cntr].setTextSize(presetsTextView[cntr].getTextSize() * 2);
+            presetsTextView[cntr].setTextSize(20);  //as above, this needs to be set programmatic
 
             final int ouah = cntr;
 
