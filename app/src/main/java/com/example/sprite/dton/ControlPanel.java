@@ -123,6 +123,10 @@ public class ControlPanel extends AppCompatActivity {
         TextView[] presetsTextView = new TextView[GlobalMisc.MaxPresets];
         final List<ToneDefinition> toneList = myTones;
 
+        //wipe anything that may've been in the layout prior to coming here
+        lloPresets.removeAllViewsInLayout();
+
+        //add our presets to the linearlayout in textviews
         for (int cntr = 0; cntr < myTones.size() && cntr < GlobalMisc.MaxPresets; cntr++) {
             presetsTextView[cntr] = new TextView(context);
             presetsTextView[cntr].setLayoutParams(lparams);
