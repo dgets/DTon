@@ -135,28 +135,23 @@ public class ControlPanel extends AppCompatActivity {
 
             final int ouah = cntr;
 
+
             presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    GlobalMisc.debugTMsg(getBaseContext(), "You selected " +
-//                            toneList.get(ouah).getName());
                     if (!toneList.get(ouah).isPlaying()) {
+                        toneList.get(ouah).togglePlaying();
                         PlayTone.play(toneList.get(ouah).getFrequency());
+                        Toast.makeText(getBaseContext(), "Playing " + toneList.get(ouah).getName(),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        toneList.get(ouah).togglePlaying();
+                        PlayTone.stop();
                     }
                 }
             });
 
             lloPresets.addView(presetsTextView[cntr]);
         }
-    }
-
-    /**
-     * Method handles initiating tone playback (or stop, depending) when the
-     * card holding the frequency's data is clicked.
-     *
-     * @param view
-     */
-    public void onPresetClick(android.view.View view) {
-
     }
 }

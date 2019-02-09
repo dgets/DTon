@@ -17,12 +17,17 @@ public class PlayTone {
         //audioBoss = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         track = buildTrack(initSound(freq));
+        track.setLoopPoints(0, sampleRate, -1); //infinite loop
         track.play();
+    }
+
+    public static void stop() {
+        track.stop();
     }
 
     private static byte[] initSound(double frequency) {
         double  sampleData[]    =   new double[numSamples];
-        byte  sampleInProgress[] = new byte[2 * numSamples];  //redundant, yeah :P
+        byte    sampleInProgress[] = new byte[2 * numSamples];  //redundant, yeah :P
 
         for (int ouah = 0; ouah < numSamples; ++ouah) {
             sampleData[ouah] = Math.sin(2 * Math.PI * ouah / (sampleRate / frequency));
