@@ -2,6 +2,7 @@ package com.example.sprite.dton;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,13 @@ public class Permanence {
         myPresetsList = context.getSharedPreferences(PrefsName, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = myPresetsList.edit();
 
-        for (int cntr = 1; cntr <= presetList.size(); cntr++) {
+        for (int cntr = 0; cntr < presetList.size(); cntr++) {
+            Log.d("savePresetFreqs", presetList.get(cntr).toString());
+
             prefsEditor.putString(FreqEntryName + Integer.toString(cntr),
-                    presetList.get(cntr - 1).getName());
+                    presetList.get(cntr).getName());
             prefsEditor.putFloat(FreqEntryValue + Integer.toString(cntr),
-                    presetList.get(cntr -1).getFrequency());
+                    presetList.get(cntr).getFrequency());
 
             try {
                 prefsEditor.commit();   //note that .apply() will do this in the bg instead of
@@ -67,5 +70,24 @@ public class Permanence {
         }
 
         return myTonesList;
+    }
+
+    public static void removePresetFreq(Context context, int ndx) {
+        //SharedPreferences prefs = context.getSharedPreferences(PrefsName, Context.MODE_PRIVATE);
+        SharedPreferences prefs = myPresetsList;
+        boolean success = true;
+
+        if (!prefs.edit().remove(FreqEntryName + Integer.toString(ndx)).commit()) {
+            success = false;
+        }
+        if (!prefs.edit().remove(FreqEntryValue + Integer.toString(ndx)).commit()) {
+            success = false;
+        }
+
+        if (!success) {
+            Log.d("removePresetFreq", "Could not successfully write changes to prefs!");
+        } else {
+            Log.d("removePresetFreq", "Successfully wrote changes to prefs.");
+        }
     }
 }

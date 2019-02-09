@@ -180,18 +180,18 @@ public class ControlPanel extends AppCompatActivity {
                     builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //remove the entry
-                            //Log.d("onLongClick", "tag: " + innerView.getTag());
-                            //toneList.remove(innerView.getTag());
-                            ToneDefinition.wipeEntry(
-                                    Integer.parseInt(innerView.getTag().toString()));
+                            List<ToneDefinition> newToneList;
+                            int pos = Integer.parseInt(innerView.getTag().toString());
+
+                            newToneList = ToneDefinition.wipeEntry(pos);
                             try {
-                                Permanence.savePresetFreqs(ControlPanel.this, toneList);
+                                Permanence.savePresetFreqs(getBaseContext(), newToneList);
                             } catch (Exception ex) {
                                 Toast.makeText(ControlPanel.this, "Issue saving presets: " + ex,
                                         Toast.LENGTH_LONG).show();
                             }
-                            updateDisplay(toneList);
+                            updateDisplay(newToneList);
+                            Permanence.removePresetFreq(ControlPanel.this, pos);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
