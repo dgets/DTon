@@ -138,8 +138,11 @@ public class ControlPanel extends AppCompatActivity {
             presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GlobalMisc.debugTMsg(getBaseContext(), "You selected " +
-                            toneList.get(ouah).getName());
+//                    GlobalMisc.debugTMsg(getBaseContext(), "You selected " +
+//                            toneList.get(ouah).getName());
+                    if (!toneList.get(ouah).isPlaying()) {
+                        PlayTone.play(toneList.get(ouah).getFrequency());
+                    }
                 }
             });
 
