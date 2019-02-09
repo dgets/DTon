@@ -3,8 +3,6 @@ package com.example.sprite.dton;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -138,22 +136,34 @@ public class ControlPanel extends AppCompatActivity {
             presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GlobalMisc.debugTMsg(getBaseContext(), "You selected " +
-                            toneList.get(ouah).getName());
+                    boolean alreadyPlaying = false;
+                    int playingIndex = -1;
+
+                    for (int cntr = 0; cntr < toneList.size(); cntr++) {
+                        if (toneList.get(cntr).isPlaying()) {
+                            alreadyPlaying = true;
+                            playingIndex = cntr;
+                            break;
+                        }
+                    }
+
+                    if (alreadyPlaying && playingIndex == ouah) {
+                        toneList.get(ouah).togglePlaying();
+                        PlayTone.stop();
+                    } else if (alreadyPlaying) {
+                        Toast.makeText(getBaseContext(), "Already playing a tone, stop " +
+                                        toneList.get(playingIndex).getName() + " first!",
+                                        Toast.LENGTH_LONG).show();
+                    } else {
+                        toneList.get(ouah).togglePlaying();
+                        PlayTone.play(toneList.get(ouah).getFrequency());
+                        Toast.makeText(getBaseContext(), "Playing " + toneList.get(ouah).getName(),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
             lloPresets.addView(presetsTextView[cntr]);
         }
-    }
-
-    /**
-     * Method handles initiating tone playback (or stop, depending) when the
-     * card holding the frequency's data is clicked.
-     *
-     * @param view
-     */
-    public void onPresetClick(android.view.View view) {
-
     }
 }
