@@ -51,6 +51,14 @@ public class ToneDefinition {
         this.frequency = freq;
     }
 
+    /**
+     * Method wipes an entry from the internal data structure that we're
+     * currently working with, making sure to cleanse it in a way that will
+     * leave the List suitable for updateDisplay().
+     *
+     * @param position List index to toast
+     * @return
+     */
     public static List<ToneDefinition> wipeEntry(int position) {
         List<ToneDefinition> newTones = new ArrayList<ToneDefinition>();
 
@@ -61,15 +69,6 @@ public class ToneDefinition {
             }
         }
         myTones = newTones;
-
-        //if that wasn't the last one in line, we have to restructure manually
-        //if (position != (ControlPanel.myTones.size() - 1)) {
-        //    for (int cntr = position; cntr < ControlPanel.myTones.size() - 2; cntr++) {
-        //        ControlPanel.myTones.set(cntr, ControlPanel.myTones.get(cntr + 1));
-        //    }
-
-        //    ControlPanel.myTones.remove(ControlPanel.myTones.size() - 1);
-        //}
 
         return myTones;
     }

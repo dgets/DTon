@@ -3,6 +3,7 @@ package com.example.sprite.dton;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -140,6 +141,7 @@ public class ControlPanel extends AppCompatActivity {
             presetsTextView[cntr].setTextSize(20);  //as above, this needs to be set programmatic
 
             final int ouah = cntr;
+            final int originalTextColor = presetsTextView[cntr].getCurrentTextColor();
 
             //implements playback toggle with a textbox click
             presetsTextView[cntr].setOnClickListener(new View.OnClickListener() {
@@ -158,6 +160,7 @@ public class ControlPanel extends AppCompatActivity {
 
                     if (alreadyPlaying && playingIndex == ouah) {
                         toneList.get(ouah).togglePlaying();
+                        //togglePlaybackIndicator(playingIndex);
                         PlayTone.stop();
                     } else if (alreadyPlaying) {
                         Toast.makeText(getBaseContext(), "Already playing a tone, stop '" +
@@ -165,6 +168,7 @@ public class ControlPanel extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show();
                     } else {
                         toneList.get(ouah).togglePlaying();
+                        //togglePlaybackIndicator(playingIndex);
                         PlayTone.play(toneList.get(ouah).getFrequency());
                         Toast.makeText(getBaseContext(), "Playing '" +
                                 toneList.get(ouah).getName() + "'", Toast.LENGTH_SHORT).show();
@@ -177,9 +181,11 @@ public class ControlPanel extends AppCompatActivity {
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ControlPanel.this);
-                    builder.setTitle("Delete this preset?");
-
                     final View innerView = v;
+
+                    String presetName =
+                            toneList.get(Integer.parseInt(v.getTag().toString())).getName();
+                    builder.setTitle("Delete preset: '" + presetName + "'?");
 
                     builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
@@ -190,12 +196,12 @@ public class ControlPanel extends AppCompatActivity {
                             newToneList = ToneDefinition.wipeEntry(pos);
                             try {
                                 Permanence.savePresetFreqs(getBaseContext(), newToneList);
+                                Permanence.removePresetFreq(ControlPanel.this, pos);
                             } catch (Exception ex) {
                                 Toast.makeText(ControlPanel.this, "Issue saving presets: " + ex,
                                         Toast.LENGTH_LONG).show();
                             }
                             updateDisplay(newToneList);
-                            Permanence.removePresetFreq(ControlPanel.this, pos);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -212,6 +218,16 @@ public class ControlPanel extends AppCompatActivity {
             });
 
             lloPresets.addView(presetsTextView[cntr]);
+        }
+    }
+
+    private void togglePlaybackIndicator(int pos) {
+        TextView currentlyToggling = (TextView) lloPresets.findViewById(pos);
+
+        if (myTones.get(pos).isPlaying()) {
+            currentlyToggling.setTextColor(Color.GREEN);
+        } else {
+            currentlyToggling.setTextColor(Color.GRAY);
         }
     }
 }
